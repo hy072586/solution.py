@@ -6,23 +6,23 @@ import sys
 
 def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
-  #Prepare a server socket
+  serverSocket.listen(1)
   serverSocket.bind(("", port))
-  #Fill in start
-
-  #Fill in end
+  print('The server is ready to receive')
 
   while True:
     #Establish the connection
+    print('Ready to serve...')
     #print('Ready to serve...')
-    connectionSocket, addr = #Fill in start      #Fill in end
+    connectionSocket, addr = serverSocket.accept()
     try:
 
       try:
-        message = #Fill in start    #Fill in end
+        message = connectionSocket(1024)
         filename = message.split()[1]
         f = open(filename[1:])
-        outputdata = #Fill in start     #Fill in end
+        outputdata = f.read()
+
         
         #Send one HTTP header line into socket.
         #Fill in start
@@ -33,7 +33,7 @@ def webServer(port=13331):
         for i in range(0, len(outputdata)):
           connectionSocket.send(outputdata[i].encode())
 
-        connectionSocket.send("\r\n".encode())
+        connectionSocket.send("HTTP/1.1 200 OK \r\n".encode())
         connectionSocket.close()
       except IOError:
         # Send response message for file not found (404)
